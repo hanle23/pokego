@@ -9,38 +9,38 @@ import (
 )
 
 var (
-    client     *Client
-    clientOnce sync.Once
-    clientLock sync.RWMutex
+	client     *Client
+	clientOnce sync.Once
+	clientLock sync.RWMutex
 )
 
 type Client struct {
-    apiClient *api.Client
+	apiClient *api.Client
 }
 
 func NewClient() *Client {
-    clientOnce.Do(func() {
-        httpClient := &http.Client{
-            Timeout: time.Second * 30,
-        }
-        baseURL := "https://pokeapi.co/api/v2/"
-        apiClient := api.NewClient(httpClient, baseURL)
-        client = &Client{
-            apiClient: apiClient,
-        }
-    })
-    return client
+	clientOnce.Do(func() {
+		httpClient := &http.Client{
+			Timeout: time.Second * 30,
+		}
+		baseURL := "https://pokeapi.co/api/v2/"
+		apiClient := api.NewClient(httpClient, baseURL)
+		client = &Client{
+			apiClient: apiClient,
+		}
+	})
+	return client
 }
 
 func ResetClient() {
-    clientLock.Lock()
-    defer clientLock.Unlock()
-    client = nil
-    clientOnce = sync.Once{}
+	clientLock.Lock()
+	defer clientLock.Unlock()
+	client = nil
+	clientOnce = sync.Once{}
 }
 
 func GetClient() *Client {
-    clientLock.RLock()
-    defer clientLock.RUnlock()
-    return client
+	clientLock.RLock()
+	defer clientLock.RUnlock()
+	return client
 }
