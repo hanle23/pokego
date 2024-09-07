@@ -1,7 +1,6 @@
 package pokego
 
 import (
-	"fmt"
 	"net/http"
 	"sync"
 	"time"
@@ -9,34 +8,39 @@ import (
 	"github.com/hanle23/pokego/internal/api"
 )
 
-var lock = &sync.Mutex{}
+var (
+	client     *Client
+	clientOnce sync.Once
+	clientLock sync.RWMutex
+)
 
 type Client struct {
 	apiClient *api.Client
 }
 
-var client *Client
-
 func NewClient() *Client {
-	if client == nil {
-		lock.Lock()
-		defer lock.Unlock()
-		if client == nil {
-			httpClient := &http.Client{
-				Timeout: time.Second * 30,
-			}
-			var baseURL string = "https://pokeapi.co/api/v2/"
-
-			apiClient := api.NewClient(httpClient, baseURL)
-			client = &Client{
-				apiClient: apiClient,
-			}
-			return client
-		} else {
-			fmt.Println("Client was already created.")
+	clientOnce.Do(func() {
+		httpClient := &http.Client{
+			Timeout: time.Second * 30,
 		}
-		fmt.Println("Client was already created.")
-	}
+		baseURL := "https://pokeapi.co/api/v2/"
+		apiClient := api.NewClient(httpClient, baseURL)
+		client = &Client{
+			apiClient: apiClient,
+		}
+	})
+	return client
+}
 
+func ResetClient() {
+	clientLock.Lock()
+	defer clientLock.Unlock()
+	client = nil
+	clientOnce = sync.Once{}
+}
+
+func GetClient() *Client {
+	clientLock.RLock()
+	defer clientLock.RUnlock()
 	return client
 }
