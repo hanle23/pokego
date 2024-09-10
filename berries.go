@@ -5,28 +5,51 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/hanle23/pokego/internal/models"
 )
 
-func (c *Client) Berry(value string) error {
-	if strings.TrimSpace(value) == "" {
-		return errors.New("Berry identifier cannot be empty")
+func (c *Client) Berry(id string) (result models.Berry, err error) {
+	if strings.TrimSpace(id) == "" {
+		return result, errors.New("Berry identifier cannot be empty")
 	}
-	targetURL := "berry/" + value + "/"
-	c.apiClient.Fetch(targetURL)
-	return nil
+	targetURL := "berry"
+	fullURL := fmt.Sprintf("%s/%s/", targetURL, id)
+	err = c.apiClient.Fetch(fullURL, &result)
+	return result, err
 }
 
-func (c *Client) Berries(offset string, limit string) error {
-	_, err := strconv.Atoi(offset)
+func (c *Client) Berries(offset string, limit string) (result models.Berries, err error) {
+	_, err = strconv.Atoi(offset)
 	if err != nil {
-		return errors.New("Offset is not a valid number")
+		return result, errors.New("Offset is not a valid number")
 	}
 	_, err = strconv.Atoi(limit)
 	if err != nil {
-		return errors.New("Limit is not a valid number")
+		return result, errors.New("Limit is not a valid number")
 	}
 	targetURL := "berry/"
 	fullURL := fmt.Sprintf("%s?offset=%s&limit=%s", targetURL, offset, limit)
-	c.apiClient.Fetch(fullURL)
-	return nil
+	err = c.apiClient.Fetch(fullURL, &result)
+	return result, err
+}
+
+func (c *Client) BerryFirmness(id string) (result models.Berries, err error) {
+	if strings.TrimSpace(id) == "" {
+		return result, errors.New("Berry identifier cannot be empty")
+	}
+	targetURL := "berry-firmness"
+	fullURL := fmt.Sprintf("%s/%s/", targetURL, id)
+	err = c.apiClient.Fetch(fullURL, &result)
+	return result, err
+}
+
+func (c *Client) BerryFlavor(id string) (result models.Berries, err error) {
+	if strings.TrimSpace(id) == "" {
+		return result, errors.New("Berry identifier cannot be empty")
+	}
+	targetURL := "berry-flavor"
+	fullURL := fmt.Sprintf("%s/%s/", targetURL, id)
+	err = c.apiClient.Fetch(fullURL, &result)
+	return result, err
 }
