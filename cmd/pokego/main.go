@@ -10,7 +10,7 @@ func main() {
 	// Initialize the client
 	client := pokego.NewClient()
 
-	result, err := client.Berries("123", "12")
+	result, err := client.Berries("0", "20")
 	fmt.Println(err)
 	fmt.Println(result)
 }
