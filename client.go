@@ -18,13 +18,13 @@ type Client struct {
 	apiClient *api.Client
 }
 
-func NewClient() *Client {
+func NewClient(options ...func(*api.Config)) *Client {
 	clientOnce.Do(func() {
 		httpClient := &http.Client{
 			Timeout: time.Second * 30,
 		}
 		baseURL := "https://pokeapi.co/api/v2/"
-		apiClient := api.NewClient(httpClient, baseURL)
+		apiClient := api.NewClient(httpClient, baseURL, options)
 		client = &Client{
 			apiClient: apiClient,
 		}

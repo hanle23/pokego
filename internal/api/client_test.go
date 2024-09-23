@@ -3,17 +3,27 @@ package api
 import (
 	"net/http"
 	"testing"
+	"time"
 )
 
-func TestNewClient(t *testing.T) {
+func TestDefaultNewClient(t *testing.T) {
 	httpClient := &http.Client{}
 	baseURL := "https://api.example.com"
-	client := NewClient(httpClient, baseURL)
+	var options []func(*Config)
+	client := NewClient(httpClient, baseURL, options)
 
 	if client.httpClient != httpClient {
 		t.Errorf("expected %v, got %v", httpClient, client.httpClient)
 	}
 	if client.baseURL != baseURL {
 		t.Errorf("expected %v, got %v", baseURL, client.baseURL)
+	}
+
+	if client.GetUseCache() != true {
+		t.Errorf("expected %v, got %v", true, client.GetUseCache())
+	}
+
+	if client.GetExpireTime() != time.Duration(86400*float64(time.Second)) {
+		t.Errorf("expected %v, got %v", true, client.GetUseCache())
 	}
 }

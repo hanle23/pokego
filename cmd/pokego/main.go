@@ -8,9 +8,6 @@ import (
 
 func main() {
 	// Initialize the client
-	client := pokego.NewClient()
-
-	result, err := client.Berries("0", "20")
-	fmt.Println(err)
-	fmt.Println(result)
+	client := pokego.NewClient(pokego.WithUseCache(false))
+	fmt.Println(client.GetCurrentConfig())
 }
