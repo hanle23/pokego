@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -16,10 +17,12 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
-	err = json.NewDecoder(resp.Body).Decode(obj)
+	fmt.Println(resp.Header.Get("Etag"))
+	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("error decoding response: %w", err)
+		return fmt.Errorf("error reading response: %w", err)
 	}
-
-	return nil
+	cachePackage := CachePackage{value: bodyBytes, etag: resp.Header.Get("Etag")}
+	c.SetCache(endpoint, cachePackage, nil)
+	return json.Unmarshal(bodyBytes, obj)
 }
