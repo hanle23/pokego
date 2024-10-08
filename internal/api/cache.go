@@ -41,3 +41,22 @@ func (c *Client) GetCache(endpoint string) (data interface{}, expireTime time.Ti
 	}
 	return data, expireTime, true
 }
+
+func (c *Client) Retrieve(endpoint string) (data interface{}) {
+	data, expireTime, found := c.GetCache(endpoint)
+	if !found || data == nil {
+		return nil
+	}
+	if time.Now().Before(expireTime) {
+		return data
+	}
+	etag := data.(CachePackage).etag
+	isChanged, error := c.PingETag(endpoint, etag)
+	if error != nil {
+		return nil
+	}
+	if isChanged {
+		return nil
+	}
+	return data
+}
