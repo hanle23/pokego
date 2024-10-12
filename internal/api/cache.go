@@ -43,6 +43,9 @@ func (c *Client) GetCache(endpoint string) (data interface{}, expireTime time.Ti
 }
 
 func (c *Client) Retrieve(endpoint string) (data interface{}) {
+	if endpoint == "" {
+		return nil
+	}
 	data, expireTime, found := c.GetCache(endpoint)
 	if !found || data == nil {
 		return nil

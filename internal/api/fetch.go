@@ -21,7 +21,6 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
-	fmt.Println(resp.Header.Get("Etag"))
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return fmt.Errorf("error reading response: %w", err)
