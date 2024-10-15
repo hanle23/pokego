@@ -21,13 +21,13 @@ func ClearCache(ca cache.Cache) {
 	ca.Flush()
 }
 
-func (c *Client) SetCache(endpoint string, body CachePackage, duration *int) {
+func (c *Client) SetCache(endpoint string, body CachePackage, duration int) {
 	if c.cache == nil {
 		return
 	}
 	var expireTime time.Duration
-	if duration != nil {
-		expireTime = time.Duration(*duration) * time.Second
+	if duration != 0 {
+		expireTime = time.Duration(duration) * time.Second
 	} else {
 		expireTime = c.config.expireTime
 	}

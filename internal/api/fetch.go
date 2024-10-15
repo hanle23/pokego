@@ -26,6 +26,6 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 		return fmt.Errorf("error reading response: %w", err)
 	}
 	cachePackage := CachePackage{value: bodyBytes, etag: resp.Header.Get("Etag")}
-	c.SetCache(endpoint, cachePackage, nil)
+	c.SetCache(endpoint, cachePackage, 0)
 	return json.Unmarshal(bodyBytes, obj)
 }
