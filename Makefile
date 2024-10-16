@@ -1,5 +1,10 @@
 .DEFAULT_GOAL := build
-fmt:
+
+test:
+	go test ./... -cover -v
+.PHONY: test
+
+fmt: test
 	go fmt ./...
 .PHONY:fmt
 
@@ -12,5 +17,5 @@ vet: fmt
 .PHONY: vet
 
 build: vet
-	go build hello.go
+	go build ./...
 .PHONY: build
