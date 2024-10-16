@@ -42,20 +42,6 @@ func TestCacheEnabled(t *testing.T) {
 	}
 }
 
-func TestEmptyEndpoint(t *testing.T) {
-	result := client.Retrieve("")
-	if result != nil {
-		t.Errorf("Expected nil, got: %v", result)
-	}
-}
-
-func TestValidEndpointNonExistData(t *testing.T) {
-	result := client.Retrieve("invalid-key")
-	if result != nil {
-		t.Errorf("Expected nil, got: %v", result)
-	}
-}
-
 func TestSetCache_defaultTime(t *testing.T) {
 	enc := gob.NewEncoder(&network)
 	testData := models.Berry{Name: "Cheri"}
@@ -108,9 +94,84 @@ func TestSetCache_customTime(t *testing.T) {
 	}
 }
 
-func TestCacheHitValidData(t *testing.T) {
-	// testData := models.Berry{Name:"Cheri"}
-	// client.SetCache("berry", testData, time.Now().Add(1*time.Hour))
+func TestGetCache_invalidEndpoint(t *testing.T) {
+	data, expireTime, found := client.GetCache("testing")
+	if data != nil {
+		t.Errorf("Expected data to be %v, got %v", nil, data)
+	}
+	if !expireTime.IsZero() {
+		t.Errorf("Expected is zero returns %v, got %v", true, expireTime.IsZero())
+	}
+	if found == true {
+		t.Errorf("Expected found to be %v, got %v", false, found)
+	}
+}
+
+func TestGetCache_validEndpoint(t *testing.T) {
+	enc := gob.NewEncoder(&network)
+	testData := models.Berry{Name: "Cheri"}
+	customTime := 60
+	err := enc.Encode(testData)
+	if err != nil {
+		t.Errorf("Encode error: %v", err)
+	}
+	testPackage := CachePackage{value: network.Bytes(), etag: "abc123"}
+	client.SetCache("berry", testPackage, customTime)
+	data, expireTime, found := client.GetCache("berry")
+	if data == nil {
+		t.Errorf("Expected data to be %v, got %v", data, nil)
+	}
+	if expireTime.IsZero() {
+		t.Errorf("Expected is zero returns %v, got %v", false, expireTime.IsZero())
+	}
+	if found != true {
+		t.Errorf("Expected found to be %v, got %v", true, found)
+	}
+}
+
+func TestRetrieve_emptyEndpoint(t *testing.T) {
+	result := client.Retrieve("")
+	if result != nil {
+		t.Errorf("Expected nil, got: %v", result)
+	}
+}
+
+func TestRetrieve_ValidEndpointNonExistData(t *testing.T) {
+	result := client.Retrieve("invalid-key")
+	if result != nil {
+		t.Errorf("Expected nil, got: %v", result)
+	}
+}
+
+func TestRetrieve_ValidEndpointExistData(t *testing.T) {
+	enc := gob.NewEncoder(&network)
+	testData := models.Berry{Name: "Cheri"}
+	err := enc.Encode(testData)
+	if err != nil {
+		t.Errorf("Encode error: %v", err)
+	}
+	testPackage := CachePackage{value: network.Bytes(), etag: "abc123"}
+	client.SetCache("berry", testPackage, 0)
+	result := client.Retrieve("berry")
+	if result == nil {
+		t.Errorf("Expected data, got nil")
+	}
+}
+
+func TestRetrieve_ValidEndpointExistDataExpired(t *testing.T) {
+	enc := gob.NewEncoder(&network)
+	testData := models.Berry{Name: "Cheri"}
+	err := enc.Encode(testData)
+	if err != nil {
+		t.Errorf("Encode error: %v", err)
+	}
+	testPackage := CachePackage{value: network.Bytes(), etag: "abc123"}
+	client.SetCache("berry", testPackage, 0)
+	client.cache.Delete("berry")
+	result := client.Retrieve("berry")
+	if result != nil {
+		t.Errorf("Expected nil, got: %v", result)
+	}
 }
 
 func TestMain(m *testing.M) {

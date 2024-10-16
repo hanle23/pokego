@@ -11,7 +11,7 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 	targetURL := fmt.Sprintf("%s%s", c.baseURL, endpoint)
 	data := c.Retrieve(endpoint)
 	if data != nil {
-		// Handling unMarshal and return obj
+		return json.Unmarshal(data.(CachePackage).value, obj)
 	}
 	resp, err := c.httpClient.Get(targetURL)
 	if err != nil {
