@@ -9,9 +9,11 @@ import (
 
 func (c *Client) Fetch(endpoint string, obj interface{}) error {
 	targetURL := fmt.Sprintf("%s%s", c.baseURL, endpoint)
-	data := c.Retrieve(endpoint)
-	if data != nil {
-		return json.Unmarshal(data.(CachePackage).value, obj)
+	if c.config.useCache {
+		data := c.Retrieve(endpoint)
+		if data != nil {
+			return json.Unmarshal(data.(CachePackage).value, obj)
+		}
 	}
 	resp, err := c.httpClient.Get(targetURL)
 	if err != nil {
@@ -24,8 +26,10 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 	if err != nil {
 		return fmt.Errorf("error reading response: %w", err)
 	}
-	cachePackage := CachePackage{value: bodyBytes, etag: resp.Header.Get("Etag")}
-	c.SetCache(endpoint, cachePackage, 0)
+	if c.config.useCache {
+		cachePackage := CachePackage{value: bodyBytes, etag: resp.Header.Get("Etag")}
+		c.SetCache(endpoint, cachePackage, 0)
+	}
 	err = json.Unmarshal(bodyBytes, obj)
 	if err != nil {
 		return err
