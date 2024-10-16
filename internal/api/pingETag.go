@@ -7,7 +7,7 @@ import (
 
 func (c *Client) PingETag(endpoint string, etag string) (isChanged bool, err error) {
 	targetURL := fmt.Sprintf("%s%s", c.baseURL, endpoint)
-	req, err := http.NewRequest("HEAD", targetURL, nil)
+	req, err := http.NewRequest("HEAD", targetURL, http.NoBody)
 	if err != nil {
 		return true, err
 	}

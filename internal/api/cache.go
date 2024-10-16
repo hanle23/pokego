@@ -54,8 +54,8 @@ func (c *Client) Retrieve(endpoint string) (data interface{}) {
 		return data
 	}
 	etag := data.(CachePackage).etag
-	isChanged, error := c.PingETag(endpoint, etag)
-	if error != nil {
+	isChanged, err := c.PingETag(endpoint, etag)
+	if err != nil {
 		return nil
 	}
 	if isChanged {
