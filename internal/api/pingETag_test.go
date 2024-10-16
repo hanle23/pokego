@@ -10,7 +10,6 @@ func TestPingETag(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %v", err)
 	}
-	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("Unexpected status code: %d", resp.StatusCode)
 	}
@@ -25,4 +24,5 @@ func TestPingETag(t *testing.T) {
 	if isChanged {
 		t.Error("Expected isChanged to be false")
 	}
+	resp.Body.Close()
 }

@@ -17,7 +17,6 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 	if err != nil {
 		return fmt.Errorf("error making request: %w", err)
 	}
-	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
@@ -27,5 +26,9 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 	}
 	cachePackage := CachePackage{value: bodyBytes, etag: resp.Header.Get("Etag")}
 	c.SetCache(endpoint, cachePackage, 0)
-	return json.Unmarshal(bodyBytes, obj)
+	err = json.Unmarshal(bodyBytes, obj)
+	if err != nil {
+		return err
+	}
+	return resp.Body.Close()
 }
