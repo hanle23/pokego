@@ -9,7 +9,7 @@ type Config struct {
 
 var defaultConfig = Config{
 	useCache:   true,
-	expireTime: time.Duration(86400 * float64(time.Second)),
+	expireTime: time.Duration(64908 * float64(time.Second)),
 }
 
 func (c *Client) GetCurrentConfig() Config {

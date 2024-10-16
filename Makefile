@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := build
 
 test:
-	go test ./...
+	go test ./... -cover -v
 .PHONY: test
 
 fmt: test

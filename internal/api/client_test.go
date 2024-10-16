@@ -23,7 +23,7 @@ func TestDefaultNewClient(t *testing.T) {
 		t.Errorf("expected %v, got %v", true, client.GetUseCache())
 	}
 
-	if client.GetExpireTime() != time.Duration(86400*float64(time.Second)) {
-		t.Errorf("expected %v, got %v", true, client.GetUseCache())
+	if client.GetExpireTime() != time.Duration(64908*float64(time.Second)) {
+		t.Errorf("expected %v, got %v", time.Duration(64908*float64(time.Second)), client.GetExpireTime())
 	}
 }
