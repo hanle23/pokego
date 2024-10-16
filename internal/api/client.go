@@ -30,7 +30,7 @@ func NewClient(httpClient *http.Client, baseURL string, options []func(*Config))
 		cache:      newCache,
 	}
 
-	if config.useCache == true {
+	if config.useCache {
 		client.cache = client.NewCache()
 	}
 	return client
