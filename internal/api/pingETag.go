@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (c *Client) PingETag(endpoint string, etag string) (isChanged bool, error error) {
+func (c *Client) PingETag(endpoint string, etag string) (isChanged bool, err error) {
 	targetURL := fmt.Sprintf("%s%s", c.baseURL, endpoint)
 	req, err := http.NewRequest("HEAD", targetURL, nil)
 	if err != nil {
@@ -17,7 +17,7 @@ func (c *Client) PingETag(endpoint string, etag string) (isChanged bool, error e
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		return true, error
+		return true, err
 	}
 	if resp.StatusCode == 304 {
 		return false, nil
