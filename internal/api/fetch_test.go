@@ -19,12 +19,12 @@ func TestFetch(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to make HTTP request: %v", err)
 	}
-	defer resp.Body.Close()
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		t.Fatalf("Failed to read response body: %v", err)
 	}
+	defer resp.Body.Close()
 	var resultFetch models.Berries
 	err = json.Unmarshal(bodyBytes, &resultFetch)
 	if err != nil {
