@@ -24,7 +24,6 @@ func TestFetch(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to read response body: %v", err)
 	}
-	defer resp.Body.Close()
 	var resultFetch models.Berries
 	err = json.Unmarshal(bodyBytes, &resultFetch)
 	if err != nil {
@@ -39,4 +38,5 @@ func TestFetch(t *testing.T) {
 	if !reflect.DeepEqual(resultAPI, resultFetch) {
 		t.Fatalf("Data mismatch")
 	}
+	resp.Body.Close()
 }
