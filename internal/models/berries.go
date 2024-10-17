@@ -11,7 +11,7 @@ type Berries struct {
 }
 
 type Berry struct {
-	Id               int    `json:"id"`
+	ID               int    `json:"id"`
 	Name             string `json:"name"`
 	GrowthTime       int    `json:"growth_time"`
 	MaxHarvest       int    `json:"max_harvest"`

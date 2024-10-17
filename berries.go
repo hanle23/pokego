@@ -34,7 +34,7 @@ func (c *Client) Berries(offset string, limit string) (result models.Berries, er
 	return result, err
 }
 
-func (c *Client) BerryFirmness(id string) (result models.Berries, err error) {
+func (c *Client) BerryFirmness(id string) (result models.BerryFirmness, err error) {
 	if strings.TrimSpace(id) == "" {
 		return result, errors.New("Berry identifier cannot be empty")
 	}
@@ -44,7 +44,7 @@ func (c *Client) BerryFirmness(id string) (result models.Berries, err error) {
 	return result, err
 }
 
-func (c *Client) BerryFlavor(id string) (result models.Berries, err error) {
+func (c *Client) BerryFlavor(id string) (result models.BerryFlavor, err error) {
 	if strings.TrimSpace(id) == "" {
 		return result, errors.New("Berry identifier cannot be empty")
 	}

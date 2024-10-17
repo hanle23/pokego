@@ -1,20 +1,24 @@
-package api
+package api_test
 
 import (
 	"encoding/json"
 	"io"
+	"net/http"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/hanle23/pokego/internal/models"
 )
 
 func TestFetch(t *testing.T) {
-	resp, err := client.httpClient.Get("https://pokeapi.co/api/v2/berry/?offset=0&limit=20")
+	httpClient := &http.Client{
+		Timeout: time.Second * 30,
+	}
+	resp, err := httpClient.Get("https://pokeapi.co/api/v2/berry/?offset=0&limit=20")
 	if err != nil {
 		t.Fatalf("Failed to make HTTP request: %v", err)
 	}
-	defer resp.Body.Close()
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -34,4 +38,5 @@ func TestFetch(t *testing.T) {
 	if !reflect.DeepEqual(resultAPI, resultFetch) {
 		t.Fatalf("Data mismatch")
 	}
+	resp.Body.Close()
 }

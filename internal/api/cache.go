@@ -7,8 +7,8 @@ import (
 )
 
 type CachePackage struct {
-	value []byte
-	etag  string
+	Value []byte
+	Etag  string
 }
 
 func (c *Client) NewCache() *cache.Cache {
@@ -17,8 +17,8 @@ func (c *Client) NewCache() *cache.Cache {
 	return cache
 }
 
-func ClearCache(ca cache.Cache) {
-	ca.Flush()
+func (c *Client) ClearCache() {
+	c.cache.Flush()
 }
 
 func (c *Client) SetCache(endpoint string, body CachePackage, duration int) {
@@ -53,7 +53,7 @@ func (c *Client) Retrieve(endpoint string) (data interface{}) {
 	if time.Now().Before(expireTime) {
 		return data
 	}
-	etag := data.(CachePackage).etag
+	etag := data.(CachePackage).Etag
 	isChanged, err := c.PingETag(endpoint, etag)
 	if err != nil {
 		return nil
@@ -62,4 +62,9 @@ func (c *Client) Retrieve(endpoint string) (data interface{}) {
 		return nil
 	}
 	return data
+}
+
+func (c *Client) GetCacheInstance() cache.Cache {
+	cache := c.cache
+	return *cache
 }

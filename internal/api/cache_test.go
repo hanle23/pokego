@@ -1,4 +1,4 @@
-package api
+package api_test
 
 import (
 	"bytes"
@@ -8,11 +8,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/hanle23/pokego/internal/api"
 	"github.com/hanle23/pokego/internal/models"
 )
 
 var (
-	client  *Client
+	client  *api.Client
 	network bytes.Buffer
 )
 
@@ -21,8 +22,8 @@ func setup() {
 		Timeout: time.Second * 30,
 	}
 	baseURL := "https://pokeapi.co/api/v2/"
-	var config []func(*Config)
-	client = NewClient(httpClient, baseURL, config)
+	var config []func(*api.Config)
+	client = api.NewClient(httpClient, baseURL, config)
 }
 
 func shutdown() {
@@ -36,8 +37,8 @@ func TestClient(t *testing.T) {
 }
 
 func TestCacheEnabled(t *testing.T) {
-	cache := client.cache
-	if cache == nil {
+	cache := client.GetUseCache()
+	if !cache {
 		t.Error("Cache returned nil on enable")
 	}
 }
@@ -49,9 +50,9 @@ func TestSetCache_defaultTime(t *testing.T) {
 	if err != nil {
 		t.Errorf("Encode error: %v", err)
 	}
-	testPackage := CachePackage{value: network.Bytes(), etag: "abc123"}
+	testPackage := api.CachePackage{Value: network.Bytes(), Etag: "abc123"}
 	client.SetCache("berry", testPackage, 0)
-	data, expiryTime, found := client.cache.GetWithExpiration("berry")
+	data, expiryTime, found := client.GetCacheInstance().GetWithExpiration("berry")
 	if !found {
 		t.Errorf("Expected found, got: %v", found)
 	}
@@ -59,9 +60,9 @@ func TestSetCache_defaultTime(t *testing.T) {
 	if !expiryTime.Before(expectedTime) {
 		t.Errorf("Expected %v before %v", expiryTime, expectedTime)
 	}
-	for i := range data.(CachePackage).value {
-		if data.(CachePackage).value[i] != testPackage.value[i] {
-			t.Errorf("Expected similar %v, got: %v", data.(CachePackage).value[i], testPackage.value[i])
+	for i := range data.(api.CachePackage).Value {
+		if data.(api.CachePackage).Value[i] != testPackage.Value[i] {
+			t.Errorf("Expected similar %v, got: %v", data.(api.CachePackage).Value[i], testPackage.Value[i])
 			break
 		}
 	}
@@ -75,9 +76,9 @@ func TestSetCache_customTime(t *testing.T) {
 	if err != nil {
 		t.Errorf("Encode error: %v", err)
 	}
-	testPackage := CachePackage{value: network.Bytes(), etag: "abc123"}
+	testPackage := api.CachePackage{Value: network.Bytes(), Etag: "abc123"}
 	client.SetCache("berry", testPackage, customTime)
-	data, expiryTime, found := client.cache.GetWithExpiration("berry")
+	data, expiryTime, found := client.GetCacheInstance().GetWithExpiration("berry")
 	if !found {
 		t.Errorf("Expected found, got: %v", found)
 	}
@@ -86,9 +87,9 @@ func TestSetCache_customTime(t *testing.T) {
 	if !expiryTime.Before(expectedTime) {
 		t.Errorf("Expected %v before %v", expiryTime, expectedTime)
 	}
-	for i := range data.(CachePackage).value {
-		if data.(CachePackage).value[i] != testPackage.value[i] {
-			t.Errorf("Expected similar %v, got: %v", data.(CachePackage).value[i], testPackage.value[i])
+	for i := range data.(api.CachePackage).Value {
+		if data.(api.CachePackage).Value[i] != testPackage.Value[i] {
+			t.Errorf("Expected similar %v, got: %v", data.(api.CachePackage).Value[i], testPackage.Value[i])
 			break
 		}
 	}
@@ -115,7 +116,7 @@ func TestGetCache_validEndpoint(t *testing.T) {
 	if err != nil {
 		t.Errorf("Encode error: %v", err)
 	}
-	testPackage := CachePackage{value: network.Bytes(), etag: "abc123"}
+	testPackage := api.CachePackage{Value: network.Bytes(), Etag: "abc123"}
 	client.SetCache("berry", testPackage, customTime)
 	data, expireTime, found := client.GetCache("berry")
 	if data == nil {
@@ -150,7 +151,7 @@ func TestRetrieve_ValidEndpointExistData(t *testing.T) {
 	if err != nil {
 		t.Errorf("Encode error: %v", err)
 	}
-	testPackage := CachePackage{value: network.Bytes(), etag: "abc123"}
+	testPackage := api.CachePackage{Value: network.Bytes(), Etag: "abc123"}
 	client.SetCache("berry", testPackage, 0)
 	result := client.Retrieve("berry")
 	if result == nil {
@@ -165,9 +166,9 @@ func TestRetrieve_ValidEndpointExistDataExpired(t *testing.T) {
 	if err != nil {
 		t.Errorf("Encode error: %v", err)
 	}
-	testPackage := CachePackage{value: network.Bytes(), etag: "abc123"}
+	testPackage := api.CachePackage{Value: network.Bytes(), Etag: "abc123"}
 	client.SetCache("berry", testPackage, 0)
-	client.cache.Delete("berry")
+	client.ClearCache()
 	result := client.Retrieve("berry")
 	if result != nil {
 		t.Errorf("Expected nil, got: %v", result)
