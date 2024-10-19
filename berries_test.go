@@ -8,7 +8,7 @@ import (
 	"github.com/hanle23/pokego/internal/models"
 )
 
-func TestBerry(t *testing.T) {
+func TestBerries(t *testing.T) {
 	client := pokego.NewClient()
 	if client == nil {
 		t.Error("NewClient() returned nil")
