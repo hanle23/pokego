@@ -158,6 +158,11 @@ type PokemonHeldItem struct {
 	VersionDetails []PokemonHeldItemVersion `json:"version_details"`
 }
 
+type PokemonHeldItemVersion struct {
+	Version `json:"version"`
+	Rarity  int `json:"rarity"`
+}
+
 type PokemonMove struct {
 	Move                `json:"move"`
 	VersionGroupDetails []PokemonMoveVersion `json:"version_group_details"`
@@ -266,8 +271,8 @@ type PokemonSpecies struct {
 	Color                PokemonColor             `json:"color"`
 	Shape                PokemonShape             `json:"shape"`
 	EvolvesFromSpecies   *PokemonSpecies          `json:"evolves_from_species"`
-	EvolutionChain       `json:"evolution_chain"`
-	Habitat              PokemonHabitat `json:"habitat"`
+	EvolutionChain       *EvolutionChain          `json:"evolution_chain"`
+	Habitat              PokemonHabitat           `json:"habitat"`
 	Generation           `json:"generation"`
 	Names                []Name                  `json:"names"`
 	PalParkEncounters    []PalParkEncounterArea  `json:"pal_park_encounters"`
@@ -305,7 +310,7 @@ type Stat struct {
 	IsBattleOnly     bool                 `json:"is_battle_only"`
 	AffectingMoves   MoveStatAffectSets   `json:"affecting_moves"`
 	AffectingNatures NatureStatAffectSets `json:"affecting_natures"`
-	Characteristics  `json:"characteristics"`
+	Characteristics  []Characteristic     `json:"characteristics"`
 	MoveDamageClass  `json:"move_damage_class"`
 	Names            []Name `json:"names"`
 }

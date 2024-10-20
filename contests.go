@@ -38,6 +38,9 @@ func (c *Client) ContestEffect(id string) (result models.ContestEffect, err erro
 	if strings.TrimSpace(id) == "" {
 		return result, errors.New("ContestEffect identifier cannot be empty")
 	}
+	if _, err := strconv.Atoi(strings.TrimSpace(id)); err != nil {
+		return result, errors.New("ContestEffect identifier must be a number")
+	}
 	targetURL := "contest-effect"
 	fullURL := fmt.Sprintf("%s/%s/", targetURL, id)
 	err = c.apiClient.Fetch(fullURL, &result)
@@ -62,6 +65,9 @@ func (c *Client) ContestEffects(offset string, limit string) (result models.Cont
 func (c *Client) SuperContestEffect(id string) (result models.SuperContestEffect, err error) {
 	if strings.TrimSpace(id) == "" {
 		return result, errors.New("SuperContestEffect identifier cannot be empty")
+	}
+	if _, err := strconv.Atoi(strings.TrimSpace(id)); err != nil {
+		return result, errors.New("SuperContestEffect identifier must be a number")
 	}
 	targetURL := "super-contest-effect"
 	fullURL := fmt.Sprintf("%s/%s/", targetURL, id)

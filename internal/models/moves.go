@@ -92,3 +92,27 @@ type MoveCategory struct {
 	Moves        []Move        `json:"moves"`
 	Descriptions []Description `json:"descriptions"`
 }
+
+type MoveDamageClass struct {
+	ID           int           `json:"id"`
+	Name         string        `json:"name"`
+	Descriptions []Description `json:"descriptions"`
+	Moves        []Move        `json:"moves"`
+	Names        []Name        `json:"names"`
+}
+
+type MoveLearnMethod struct {
+	ID            int            `json:"id"`
+	Name          string         `json:"name"`
+	Descriptions  []Description  `json:"descriptions"`
+	Names         []Name         `json:"names"`
+	VersionGroups []VersionGroup `json:"version_groups"`
+}
+
+type MoveTarget struct {
+	ID           int           `json:"id"`
+	Name         string        `json:"name"`
+	Descriptions []Description `json:"descriptions"`
+	Moves        []Move        `json:"moves"`
+	Names        []Name        `json:"names"`
+}
