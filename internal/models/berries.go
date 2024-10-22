@@ -56,6 +56,16 @@ type BerryFirmness struct {
 	} `json:"names"`
 }
 
+type BerryFirmnesses struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type BerryFlavor struct {
 	ID      int    `json:"id"`
 	Name    string `json:"name"`
@@ -77,6 +87,16 @@ type BerryFlavor struct {
 		} `json:"language"`
 		Name string `json:"name"`
 	} `json:"names"`
+}
+
+type BerryFlavors struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type BerryFlavorMap struct {

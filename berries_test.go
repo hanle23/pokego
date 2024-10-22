@@ -165,6 +165,21 @@ func TestBerryFirmness_Invalid(t *testing.T) {
 	}
 }
 
+func TestBerryFirmnesses(t *testing.T) {
+	client := pokego.NewClient()
+	if client == nil {
+		t.Error("NewClient() returned nil")
+	}
+	result, err := client.BerryFirmnesses("0", "20")
+	if err != nil {
+		t.Error("Fetching Berries returning error")
+	}
+	var emptyBerry models.BerryFirmnesses
+	if reflect.DeepEqual(emptyBerry, result) {
+		t.Error("Fetch result returns nil")
+	}
+}
+
 func TestBerryFlavor_WithID(t *testing.T) {
 	client := pokego.NewClient()
 	if client == nil {
@@ -215,5 +230,20 @@ func TestBerryFlavor_Invalid(t *testing.T) {
 	_, err := client.BerryFlavor("abcs")
 	if err == nil {
 		t.Error("Fetching Berry Flavor with random string should return error")
+	}
+}
+
+func TestBerryFlavors(t *testing.T) {
+	client := pokego.NewClient()
+	if client == nil {
+		t.Error("NewClient() returned nil")
+	}
+	result, err := client.BerryFlavors("0", "20")
+	if err != nil {
+		t.Error("Fetching Berries returning error")
+	}
+	var emptyBerry models.BerryFlavors
+	if reflect.DeepEqual(emptyBerry, result) {
+		t.Error("Fetch result returns nil")
 	}
 }
