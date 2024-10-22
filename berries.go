@@ -1,17 +1,16 @@
 package pokego
 
 import (
-	"errors"
 	"fmt"
-	"strconv"
-	"strings"
 
 	"github.com/hanle23/pokego/internal/models"
+	"github.com/hanle23/pokego/internal/utils"
 )
 
 func (c *Client) Berry(id string) (result models.Berry, err error) {
-	if strings.TrimSpace(id) == "" {
-		return result, errors.New("Berry identifier cannot be empty")
+	err = utils.ArgsValidation(id, false)
+	if err != nil {
+		return result, err
 	}
 	targetURL := "berry"
 	fullURL := fmt.Sprintf("%s/%s/", targetURL, id)
@@ -20,13 +19,9 @@ func (c *Client) Berry(id string) (result models.Berry, err error) {
 }
 
 func (c *Client) Berries(offset string, limit string) (result models.Berries, err error) {
-	_, err = strconv.Atoi(offset)
+	err = utils.PaginationArgsValidation(offset, limit)
 	if err != nil {
-		return result, errors.New("Offset is not a valid number")
-	}
-	_, err = strconv.Atoi(limit)
-	if err != nil {
-		return result, errors.New("Limit is not a valid number")
+		return result, err
 	}
 	targetURL := "berry/"
 	fullURL := fmt.Sprintf("%s?offset=%s&limit=%s", targetURL, offset, limit)
@@ -35,8 +30,9 @@ func (c *Client) Berries(offset string, limit string) (result models.Berries, er
 }
 
 func (c *Client) BerryFirmness(id string) (result models.BerryFirmness, err error) {
-	if strings.TrimSpace(id) == "" {
-		return result, errors.New("Berry identifier cannot be empty")
+	err = utils.ArgsValidation(id, false)
+	if err != nil {
+		return result, err
 	}
 	targetURL := "berry-firmness"
 	fullURL := fmt.Sprintf("%s/%s/", targetURL, id)
@@ -45,13 +41,9 @@ func (c *Client) BerryFirmness(id string) (result models.BerryFirmness, err erro
 }
 
 func (c *Client) BerryFirmnesses(offset string, limit string) (result models.BerryFirmnesses, err error) {
-	_, err = strconv.Atoi(offset)
+	err = utils.PaginationArgsValidation(offset, limit)
 	if err != nil {
-		return result, errors.New("Offset is not a valid number")
-	}
-	_, err = strconv.Atoi(limit)
-	if err != nil {
-		return result, errors.New("Limit is not a valid number")
+		return result, err
 	}
 	targetURL := "berry-firmness/"
 	fullURL := fmt.Sprintf("%s?offset=%s&limit=%s", targetURL, offset, limit)
@@ -60,8 +52,9 @@ func (c *Client) BerryFirmnesses(offset string, limit string) (result models.Ber
 }
 
 func (c *Client) BerryFlavor(id string) (result models.BerryFlavor, err error) {
-	if strings.TrimSpace(id) == "" {
-		return result, errors.New("Berry identifier cannot be empty")
+	err = utils.ArgsValidation(id, false)
+	if err != nil {
+		return result, err
 	}
 	targetURL := "berry-flavor"
 	fullURL := fmt.Sprintf("%s/%s/", targetURL, id)
@@ -70,13 +63,9 @@ func (c *Client) BerryFlavor(id string) (result models.BerryFlavor, err error) {
 }
 
 func (c *Client) BerryFlavors(offset string, limit string) (result models.BerryFlavors, err error) {
-	_, err = strconv.Atoi(offset)
+	err = utils.PaginationArgsValidation(offset, limit)
 	if err != nil {
-		return result, errors.New("Offset is not a valid number")
-	}
-	_, err = strconv.Atoi(limit)
-	if err != nil {
-		return result, errors.New("Limit is not a valid number")
+		return result, err
 	}
 	targetURL := "berry-flavor/"
 	fullURL := fmt.Sprintf("%s?offset=%s&limit=%s", targetURL, offset, limit)
