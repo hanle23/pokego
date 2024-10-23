@@ -24,9 +24,29 @@ type EncounterCondition struct {
 	Values []EncounterConditionValue `json:"values"`
 }
 
+type EncounterConditions struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type EncounterConditionValue struct {
 	ID        int                `json:"id"`
 	Name      string             `json:"name"`
 	Condition EncounterCondition `json:"condition"`
 	Names     []Name             `json:"names"`
+}
+
+type EncounterConditionValues struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
