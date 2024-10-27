@@ -9,6 +9,16 @@ type Language struct {
 	Names    []Name `json:"names"`
 }
 
+type Languages struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type APIResource struct {
 	URL string `json:"url"`
 }
