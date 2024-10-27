@@ -1,5 +1,15 @@
 package models
 
+type Moves struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type Move struct {
 	ID                 int              `json:"id"`
 	Name               string           `json:"name"`
@@ -80,10 +90,30 @@ type MoveAilment struct {
 	Names []Name `json:"names"`
 }
 
+type MoveAilments struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type MoveBattleStyle struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Names []Name `json:"names"`
+}
+
+type MoveBattleStyles struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type MoveCategory struct {
@@ -91,6 +121,16 @@ type MoveCategory struct {
 	Name         string        `json:"name"`
 	Moves        []Move        `json:"moves"`
 	Descriptions []Description `json:"descriptions"`
+}
+
+type MoveCategories struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type MoveDamageClass struct {
@@ -101,6 +141,16 @@ type MoveDamageClass struct {
 	Names        []Name        `json:"names"`
 }
 
+type MoveDamageClasses struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type MoveLearnMethod struct {
 	ID            int            `json:"id"`
 	Name          string         `json:"name"`
@@ -109,10 +159,30 @@ type MoveLearnMethod struct {
 	VersionGroups []VersionGroup `json:"version_groups"`
 }
 
+type MoveLearnMethods struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type MoveTarget struct {
 	ID           int           `json:"id"`
 	Name         string        `json:"name"`
 	Descriptions []Description `json:"descriptions"`
 	Moves        []Move        `json:"moves"`
 	Names        []Name        `json:"names"`
+}
+
+type MoveTargets struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
