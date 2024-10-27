@@ -12,6 +12,16 @@ type Generation struct {
 	VersionGroups  []VersionGroup   `json:"version_groups"`
 }
 
+type Generations struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type Pokedex struct {
 	ID             int            `json:"id"`
 	Name           string         `json:"name"`
@@ -21,6 +31,16 @@ type Pokedex struct {
 	PokemonEntries []PokemonEntry `json:"pokemon_entries"`
 	Region         []Region       `json:"region"`
 	VersionGroups  []VersionGroup `json:"version_groups"`
+}
+
+type Pokedexes struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type PokemonEntry struct {
@@ -35,6 +55,16 @@ type Version struct {
 	VersionGroup `json:"version_group"`
 }
 
+type Versions struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type VersionGroup struct {
 	ID               int    `json:"id"`
 	Name             string `json:"name"`
@@ -44,4 +74,14 @@ type VersionGroup struct {
 	Pokedexes        []Pokedex         `json:"pokedexes"`
 	Regions          []Region          `json:"regions"`
 	Versions         []Version         `json:"versions"`
+}
+
+type VersionGroups struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
