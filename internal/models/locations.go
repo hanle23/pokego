@@ -1,5 +1,15 @@
 package models
 
+type Locations struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type Location struct {
 	ID             int            `json:"id"`
 	Locations      []Location     `json:"locations"`
@@ -18,6 +28,16 @@ type LocationArea struct {
 	Location             Location              `json:"location"`
 	Names                []Name                `json:"names"`
 	PokemonEncounters    []PokemonEncounter    `json:"pokemon_encounters"`
+}
+
+type LocationAreas struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type EncounterMethodRate struct {
@@ -42,6 +62,16 @@ type PalParkArea struct {
 	PokemonEncounters []PalParkEncounterSpecies `json:"pokemon_encounters"`
 }
 
+type PalParkAreas struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type PalParkEncounterSpecies struct {
 	BaseScore      int `json:"base_score"`
 	Rate           int `json:"rate"`
@@ -56,4 +86,14 @@ type Region struct {
 	MainGeneration Generation     `json:"main_generation"`
 	Pokedexes      []Pokedex      `json:"pokedexes"`
 	VersionGroups  []VersionGroup `json:"version_groups"`
+}
+
+type Regions struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
