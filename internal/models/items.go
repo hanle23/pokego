@@ -1,5 +1,15 @@
 package models
 
+type Items struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type Item struct {
 	ID                int                      `json:"id"`
 	Name              string                   `json:"name"`
@@ -32,6 +42,16 @@ type ItemHolderPokemonVersionDetail struct {
 	Version `json:"version"`
 }
 
+type ItemAttributes struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type ItemAttribute struct {
 	ID           int           `json:"id"`
 	Name         string        `json:"name"`
@@ -48,6 +68,16 @@ type ItemCategory struct {
 	Pocket ItemPocket `json:"pocket"`
 }
 
+type ItemCategories struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type ItemFlingEffect struct {
 	ID            int      `json:"id"`
 	Name          string   `json:"name"`
@@ -55,9 +85,29 @@ type ItemFlingEffect struct {
 	Items         []Item   `json:"items"`
 }
 
+type ItemFlingEffects struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type ItemPocket struct {
 	ID         int            `json:"id"`
 	Name       string         `json:"name"`
 	Categories []ItemCategory `json:"categories"`
 	Names      []Name         `json:"names"`
+}
+
+type ItemPockets struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
