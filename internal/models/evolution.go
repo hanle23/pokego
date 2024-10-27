@@ -6,6 +6,16 @@ type EvolutionChain struct {
 	Chain           ChainLink `json:"chain"`
 }
 
+type EvolutionChains struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type ChainLink struct {
 	IsBaby           bool              `json:"is_baby"`
 	Species          PokemonSpecies    `json:"species"`
@@ -39,4 +49,14 @@ type EvolutionTrigger struct {
 	Name           string           `json:"name"`
 	Names          []Name           `json:"names"`
 	PokemonSpecies []PokemonSpecies `json:"pokemon_species"`
+}
+
+type EvolutionTriggers struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
