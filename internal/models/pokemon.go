@@ -12,6 +12,16 @@ type Ability struct {
 	Pokemon           []AbilityPokemon      `json:"pokemon"`
 }
 
+type Abilities struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type AbilityEffectChange struct {
 	EffectEntries []Effect `json:"effect_entries"`
 	VersionGroup  `json:"version_group"`
@@ -37,6 +47,16 @@ type Characteristic struct {
 	Descriptions   []Description `json:"descriptions"`
 }
 
+type Characteristics struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type EggGroup struct {
 	ID             int              `json:"id"`
 	Name           string           `json:"name"`
@@ -44,11 +64,31 @@ type EggGroup struct {
 	PokemonSpecies []PokemonSpecies `json:"pokemon_species"`
 }
 
+type EggGroups struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type Gender struct {
 	ID                    int                    `json:"id"`
 	Name                  string                 `json:"name"`
 	PokemonSpeciesDetails []PokemonSpeciesGender `json:"pokemon_species_details"`
 	RequiredForEvolution  []PokemonSpecies       `json:"required_for_evolution"`
+}
+
+type Genders struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type PokemonSpeciesGender struct {
@@ -63,6 +103,16 @@ type GrowthRate struct {
 	Descriptions   []Description               `json:"descriptions"`
 	Levels         []GrowthRateExperienceLevel `json:"levels"`
 	PokemonSpecies []PokemonSpecies            `json:"pokemon_species"`
+}
+
+type GrowthRates struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type GrowthRateExperienceLevel struct {
@@ -80,6 +130,16 @@ type Nature struct {
 	PokeathlonStatChanges      []NatureStatChange          `json:"pokeathlon_stat_changes"`
 	MoveBattleStylePreferences []MoveBattleStylePreference `json:"move_battle_style_preferences"`
 	Names                      []Name                      `json:"names"`
+}
+
+type Natures struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type NatureStatChange struct {
@@ -100,6 +160,16 @@ type PokeathlonStat struct {
 	AffectingNatures NaturePokeathlonStatAffectSets `json:"affecting_natures"`
 }
 
+type PokeathlonStats struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type NaturePokeathlonStatAffectSets struct {
 	Increase []NaturePokeathlonStatAffect `json:"increase"`
 	Decrease []NaturePokeathlonStatAffect `json:"decrease"`
@@ -116,7 +186,7 @@ type Pokemon struct {
 	BaseExperience         int                `json:"base_experience"`
 	Height                 int                `json:"height"`
 	IsDefault              bool               `json:"is_default"`
-	Order                  bool               `json:"order"`
+	Order                  int                `json:"order"`
 	Weight                 int                `json:"weight"`
 	Abilities              []PokemonAbility   `json:"abilities"`
 	Forms                  []PokemonForm      `json:"forms"`
@@ -130,6 +200,16 @@ type Pokemon struct {
 	Species                PokemonSpecies     `json:"species"`
 	Stats                  []PokemonStat      `json:"stats"`
 	Types                  []PokemonType      `json:"types"`
+}
+
+type Pokemons struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type PokemonAbility struct {
@@ -208,6 +288,16 @@ type PokemonColor struct {
 	PokemonSpecies []PokemonSpecies `json:"pokemon_species"`
 }
 
+type PokemonColors struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type PokemonForm struct {
 	ID           int    `json:"id"`
 	Name         string `json:"name"`
@@ -225,6 +315,16 @@ type PokemonForm struct {
 	FormNames    []Name `json:"form_names"`
 }
 
+type PokemonForms struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type PokemonFormSprites struct {
 	FrontDefault string `json:"front_default"`
 	FrontShiny   string `json:"front_shiny"`
@@ -239,12 +339,32 @@ type PokemonHabitat struct {
 	PokemonSpecies []PokemonSpecies `json:"pokemon_species"`
 }
 
+type PokemonHabitats struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type PokemonShape struct {
 	ID             int              `json:"id"`
 	Name           string           `json:"name"`
 	AwesomeNames   []AwesomeName    `json:"awesome_names"`
 	Names          []Name           `json:"names"`
 	PokemonSpecies []PokemonSpecies `json:"pokemon_species"`
+}
+
+type PokemonShapes struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type AwesomeName struct {
@@ -282,6 +402,16 @@ type PokemonSpecies struct {
 	Varieties            []PokemonSpeciesVariety `json:"varieties"`
 }
 
+type PokemonSpeciesPagination struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type Genus struct {
 	Genus    string `json:"genus"`
 	Language `json:"language"`
@@ -315,6 +445,16 @@ type Stat struct {
 	Names            []Name `json:"names"`
 }
 
+type Stats struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
+}
+
 type MoveStatAffectSets struct {
 	Increase []MoveStatAffect `json:"increase"`
 	Decrease []MoveStatAffect `json:"decrease"`
@@ -341,6 +481,16 @@ type Type struct {
 	Names               []Name        `json:"names"`
 	Pokemon             []TypePokemon `json:"pokemon"`
 	Moves               []Move        `json:"moves"`
+}
+
+type Types struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	}
 }
 
 type TypePokemon struct {
