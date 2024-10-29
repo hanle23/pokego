@@ -32,7 +32,7 @@ func NewClient(options ...func(*api.Config)) *Client {
 	return client
 }
 
-func RemoveClient() {
+func (c *Client) RemoveClient() {
 	if client == nil {
 		return
 	}
@@ -42,7 +42,7 @@ func RemoveClient() {
 	clientOnce = sync.Once{}
 }
 
-func ResetClient() {
+func (c *Client) ResetClient() {
 	if client == nil {
 		NewClient()
 	}
@@ -59,7 +59,7 @@ func ResetClient() {
 	clientOnce = sync.Once{}
 }
 
-func GetClient() *Client {
+func (c *Client) GetClient() *Client {
 	if client == nil {
 		return nil
 	}

@@ -26,10 +26,10 @@ func TestRemoveClient(t *testing.T) {
 		t.Error("NewClient() returned nil")
 	}
 
-	RemoveClient()
+	client.RemoveClient()
 
 	// Check that the GetClient() returns a different instance
-	copyClient := GetClient()
+	copyClient := client.GetClient()
 	if copyClient != nil {
 		t.Error("GetClient() did not return nil after removal")
 	}
@@ -40,9 +40,9 @@ func TestResetClient(t *testing.T) {
 	if client == nil {
 		t.Error("NewClient() returned nil")
 	}
-	copyClient := GetClient()
-	ResetClient()
-	client2 := GetClient()
+	copyClient := client.GetClient()
+	client.ResetClient()
+	client2 := client.GetClient()
 	if copyClient == client2 {
 		t.Error("ResetClient did not reset the client")
 	}
@@ -56,7 +56,7 @@ func TestResetClient(t *testing.T) {
 
 func TestGetClient(t *testing.T) {
 	client := NewClient()
-	client2 := GetClient()
+	client2 := client.GetClient()
 	if client != client2 {
 		t.Error("GetClient did not return the client")
 	}
@@ -64,8 +64,8 @@ func TestGetClient(t *testing.T) {
 
 func TestGetClientSingleton(t *testing.T) {
 	client := NewClient()
-	client2 := GetClient()
-	client3 := GetClient()
+	client2 := client.GetClient()
+	client3 := client.GetClient()
 	if client2 != client {
 		t.Error("GetClient did not return the same client")
 	}
