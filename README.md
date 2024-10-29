@@ -117,6 +117,72 @@ client := pokego.NewClient(
 
 </details>
 
+### Contests
+
+<details>
+  <summary>Contest Types</summary>
+
+  #### Contest Types
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.ContestType("cool")
+  ```
+
+  #### Contest Types (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.ContestTypes("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Contest Types</summary>
+
+  #### Contest Effect
+
+  *Must pass ID (string)*
+
+  ```go
+  result, err := client.ContestEffect("1")
+  ```
+
+  #### Contest Effects (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.ContestEffects("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Super Contest Effects</summary>
+
+  #### Super Contest Effect
+
+  *Must pass ID (string)*
+
+  ```go
+  result, err := client.SuperContestEffect("1")
+  ```
+
+  #### Super Contest Effects (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.SuperContestEffects("0", "20")
+  ```
+
+</details>
+
+
 ## Additional Information
 
 - Config options is currently unable to change on the fly, if you want to change config setting, make sure to removeClient first and do NewClient
