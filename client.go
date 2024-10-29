@@ -32,7 +32,10 @@ func NewClient(options ...func(*api.Config)) *Client {
 	return client
 }
 
-func ResetClient() {
+func RemoveClient() {
+	if client == nil {
+		return
+	}
 	clientLock.Lock()
 	defer clientLock.Unlock()
 	client = nil
@@ -40,6 +43,9 @@ func ResetClient() {
 }
 
 func GetClient() *Client {
+	if client == nil {
+		return nil
+	}
 	clientLock.RLock()
 	defer clientLock.RUnlock()
 	return client
