@@ -19,13 +19,21 @@ func TestClientSingleton(t *testing.T) {
 	}
 }
 
-func TestResetClient(t *testing.T) {
+func TestRemoveClient(t *testing.T) {
+	// Create the initial client instance
 	client := NewClient()
-	ResetClient()
-	client2 := NewClient()
-	if client == client2 {
-		t.Error("ResetClient did not reset the client")
+	if client == nil {
+		t.Error("NewClient() returned nil")
 	}
+
+	RemoveClient()
+
+	// Check that the GetClient() returns a different instance
+	copyClient := GetClient()
+	if copyClient != nil {
+		t.Error("GetClient() did not return nil after removal")
+	}
+
 }
 
 func TestGetClient(t *testing.T) {
