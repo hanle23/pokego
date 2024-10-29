@@ -42,6 +42,23 @@ func RemoveClient() {
 	clientOnce = sync.Once{}
 }
 
+func ResetClient() {
+	if client == nil {
+		NewClient()
+	}
+	clientLock.Lock()
+	defer clientLock.Unlock()
+	currentConfig := client.apiClient.GetCurrentConfig()
+	httpClient := &http.Client{
+		Timeout: time.Second * 30,
+	}
+	apiClient := api.NewClientWithConfig(httpClient, "https://pokeapi.co/api/v2/", currentConfig)
+	client = &Client{
+		apiClient: apiClient,
+	}
+	clientOnce = sync.Once{}
+}
+
 func GetClient() *Client {
 	if client == nil {
 		return nil

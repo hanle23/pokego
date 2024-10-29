@@ -35,3 +35,14 @@ func NewClient(httpClient *http.Client, baseURL string, options []func(*Config))
 	}
 	return client
 }
+
+func NewClientWithConfig(httpClient *http.Client, baseURL string, config Config) *Client {
+	var newCache *cache.Cache
+	client := &Client{
+		baseURL:    baseURL,
+		httpClient: httpClient,
+		config:     config,
+		cache:      newCache,
+	}
+	return client
+}
