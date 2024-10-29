@@ -33,7 +33,25 @@ func TestRemoveClient(t *testing.T) {
 	if copyClient != nil {
 		t.Error("GetClient() did not return nil after removal")
 	}
+}
 
+func TestResetClient(t *testing.T) {
+	client := NewClient(WithExpireTime(50), WithUseCache(false))
+	if client == nil {
+		t.Error("NewClient() returned nil")
+	}
+	copyClient := GetClient()
+	ResetClient()
+	client2 := GetClient()
+	if copyClient == client2 {
+		t.Error("ResetClient did not reset the client")
+	}
+	if copyClient.apiClient.GetUseCache() != client2.apiClient.GetUseCache() {
+		t.Error("ResetClient did not properly copy config useCache")
+	}
+	if copyClient.apiClient.GetExpireTime() != client2.apiClient.GetExpireTime() {
+		t.Error("ResetClient did not properly copy config expireTime")
+	}
 }
 
 func TestGetClient(t *testing.T) {
