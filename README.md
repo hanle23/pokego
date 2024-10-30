@@ -378,6 +378,113 @@ client := pokego.NewClient(
 
 </details>
 
+### Items
+
+<details>
+  <summary>Items</summary>
+
+  #### Item
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Item("master-ball")
+  ```
+
+  #### Items (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Items("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Item Attributes</summary>
+
+  #### Item Attribute
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.ItemAttribute("countable")
+  ```
+
+  #### Item Attributes (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.ItemAttributes("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Item Categories</summary>
+
+  #### Item Category
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.ItemCategory("stat-boosts")
+  ```
+
+  #### Item Categories (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.ItemCategories("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Item Fling Effects</summary>
+
+  #### Item Fling Effect
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.ItemFlingEffect("badly-poison")
+  ```
+
+  #### Item Fling Effects (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.ItemFlingEffects("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Item Pockets</summary>
+
+  #### Item Pocket
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.ItemPocket("misc")
+  ```
+
+  #### Item Pockets (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.ItemPockets("0", "20")
+  ```
+
+</details>
+
 
 ## Additional Information
 
