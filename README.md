@@ -182,6 +182,116 @@ client := pokego.NewClient(
 
 </details>
 
+### Encounters
+
+<details>
+  <summary>Encounter Method</summary>
+
+  #### Encounter Method
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.EncounterMethod("walk")
+  ```
+
+  #### Encounter Methods (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.EncounterMethods("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Encounter Conditions</summary>
+
+  #### Encounter Condition
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.EncounterCondition("swarm")
+  ```
+
+  #### Encounter Conditions (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.EncounterConditions("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Encounter Condition Values</summary>
+
+  #### Encounter Condition Value
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.EncounterConditionValue("swarm-yes")
+  ```
+
+  #### Encounter Condition Values (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.EncounterConditionValues("0", "20")
+  ```
+
+</details>
+
+
+### Evolution
+
+<details>
+  <summary>Evolution Chains</summary>
+
+  #### Evolution Chain
+
+  *Must pass ID (string)*
+
+  ```go
+  result, err := client.EvolutionChain("1")
+  ```
+
+  #### Encounter Chains (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.EvolutionChains("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Evolution Triggers</summary>
+
+  #### Evolution Trigger
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.EvolutionTrigger("level-up")
+  ```
+
+  #### Encounter Triggers (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.EvolutionTriggers("0", "20")
+  ```
+
+</details>
+
 
 ## Additional Information
 
