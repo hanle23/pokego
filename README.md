@@ -485,6 +485,265 @@ client := pokego.NewClient(
 
 </details>
 
+### Locations
+
+<details>
+  <summary>Locations</summary>
+
+  #### Location
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Location("canalave-city")
+  ```
+
+  #### Items (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Locations("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Location Areas</summary>
+
+  #### Location Area
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.LocationArea("canalave-city-area")
+  ```
+
+  #### Location Areas (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.LocationArea("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Pal Park Areas</summary>
+
+  #### Pal Park Area
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.PalParkArea("forest")
+  ```
+
+  #### Pal Park Areas (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.LocationArea("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Regions</summary>
+
+  #### Region
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Region("kanto")
+  ```
+
+  #### Regions (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Regions("0", "20")
+  ```
+
+</details>
+
+### Machines
+
+<details>
+  <summary>Machines</summary>
+
+  #### Machine
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Machine("pound")
+  ```
+
+  #### Machines (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Machines("0", "20")
+  ```
+
+</details>
+
+### Moves
+
+<details>
+  <summary>Moves</summary>
+
+  #### Move
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Move("pound")
+  ```
+
+  #### Moves (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Moves("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Move Ailment</summary>
+
+  #### Move Ailment
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.MoveAilment("paralysis")
+  ```
+
+  #### Move Ailments (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.MoveAilments("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Move Battle Styles</summary>
+
+  #### Move Battle Style
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.MoveBattleStyle("attack")
+  ```
+
+  #### Move Battle Styles (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.MoveBattleStyles("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Move Category</summary>
+
+  #### Move Category
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.MoveCategory("ailment")
+  ```
+
+  #### Move Categories (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.MoveCategories("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Move Damage Class</summary>
+
+  #### Move Damage Class
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.MoveDamageClass("status")
+  ```
+
+  #### Move Damage Classes (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.MoveDamageClasses("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Move Learn Method</summary>
+
+  #### Move Learn Method
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.MoveLearnMethod("level-up")
+  ```
+
+  #### Move Learn Methods (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.MoveLearnMethods("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Move Targets</summary>
+
+  #### Move Target
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.MoveTarget("specific-move")
+  ```
+
+  #### Move Targets (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.MoveTargets("0", "20")
+  ```
+
+</details>
+
+
 
 ## Additional Information
 
