@@ -292,6 +292,92 @@ client := pokego.NewClient(
 
 </details>
 
+### Games
+
+<details>
+  <summary>Generation</summary>
+
+  #### Generation
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Generation("generation-i")
+  ```
+
+  #### Generations (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Generations("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Pokedex</summary>
+
+  #### Pokedex
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Pokedex("kanto")
+  ```
+
+  #### Pokedexes (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Pokedexes("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Version</summary>
+
+  #### Version
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Version("red")
+  ```
+
+  #### Versions (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Versions("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Version Groups</summary>
+
+  #### Version Group
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.VersionGroup("red-blue")
+  ```
+
+  #### Version Groups (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.VersionGroups("0", "20")
+  ```
+
+</details>
+
 
 ## Additional Information
 
