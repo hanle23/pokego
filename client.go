@@ -9,61 +9,71 @@ import (
 )
 
 var (
-	client     *Client
-	clientOnce sync.Once
-	clientLock sync.RWMutex
+	instance *Client
+	once     sync.Once
+	mu       sync.RWMutex
 )
 
 type Client struct {
-	apiClient *api.Client
+	apiClient  *api.Client
+	baseURL    string
+	httpClient *http.Client
+}
+
+func DefaultConfig() (*http.Client, string) {
+	return &http.Client{
+		Timeout: time.Second * 30,
+	}, "https://pokeapi.co/api/v2/"
 }
 
 func NewClient(options ...func(*api.Config)) *Client {
-	clientOnce.Do(func() {
-		httpClient := &http.Client{
-			Timeout: time.Second * 30,
-		}
-		baseURL := "https://pokeapi.co/api/v2/"
+	once.Do(func() {
+		httpClient, baseURL := DefaultConfig()
 		apiClient := api.NewClient(httpClient, baseURL, options)
-		client = &Client{
-			apiClient: apiClient,
+
+		instance = &Client{
+			apiClient:  apiClient,
+			httpClient: httpClient,
+			baseURL:    baseURL,
 		}
 	})
-	return client
+
+	return instance
 }
 
-func (c *Client) RemoveClient() {
-	if client == nil {
+func (c *Client) Reset() {
+	if c == nil {
 		return
 	}
-	clientLock.Lock()
-	defer clientLock.Unlock()
-	client = nil
-	clientOnce = sync.Once{}
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	currentConfig := c.apiClient.GetCurrentConfig()
+	c.apiClient = api.NewClientWithConfig(c.httpClient, c.baseURL, currentConfig)
+	once = sync.Once{}
 }
 
-func (c *Client) ResetClient() {
-	if client == nil {
-		NewClient()
+func (c *Client) Close() {
+	if c == nil {
+		return
 	}
-	clientLock.Lock()
-	defer clientLock.Unlock()
-	currentConfig := client.apiClient.GetCurrentConfig()
-	httpClient := &http.Client{
-		Timeout: time.Second * 30,
-	}
-	apiClient := api.NewClientWithConfig(httpClient, "https://pokeapi.co/api/v2/", currentConfig)
-	client = &Client{
-		apiClient: apiClient,
-	}
-	clientOnce = sync.Once{}
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	instance = nil
+	c.apiClient = nil
+	once = sync.Once{}
 }
 
 func (c *Client) GetClient() *Client {
-	if client == nil {
+	if c == nil {
 		return nil
 	}
-	clientLock.RLock()
-	defer clientLock.RUnlock()
-	return client
+
+	mu.RLock()
+	defer mu.RUnlock()
+
+	return instance
 }

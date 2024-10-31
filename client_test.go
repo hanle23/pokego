@@ -14,22 +14,20 @@ func TestNewClient(t *testing.T) {
 func TestClientSingleton(t *testing.T) {
 	client := NewClient()
 	client2 := NewClient()
-	if client != client2 {
+	if client.apiClient != client2.apiClient {
 		t.Error("NewClient did not return a singleton")
 	}
 }
 
 func TestRemoveClient(t *testing.T) {
-	// Create the initial client instance
 	client := NewClient()
 	if client == nil {
 		t.Error("NewClient() returned nil")
 	}
 
-	client.RemoveClient()
+	client.Close()
 
-	// Check that the GetClient() returns a different instance
-	copyClient := client.GetClient()
+	copyClient := client.apiClient
 	if copyClient != nil {
 		t.Error("GetClient() did not return nil after removal")
 	}
@@ -40,23 +38,23 @@ func TestResetClient(t *testing.T) {
 	if client == nil {
 		t.Error("NewClient() returned nil")
 	}
-	copyClient := client.GetClient()
-	client.ResetClient()
-	client2 := client.GetClient()
+	copyClient := client.apiClient
+	client.Reset()
+	client2 := client.apiClient
 	if copyClient == client2 {
 		t.Error("ResetClient did not reset the client")
 	}
-	if copyClient.apiClient.GetUseCache() != client2.apiClient.GetUseCache() {
+	if copyClient.GetUseCache() != client2.GetUseCache() {
 		t.Error("ResetClient did not properly copy config useCache")
 	}
-	if copyClient.apiClient.GetExpireTime() != client2.apiClient.GetExpireTime() {
+	if copyClient.GetExpireTime() != client2.GetExpireTime() {
 		t.Error("ResetClient did not properly copy config expireTime")
 	}
 }
 
 func TestGetClient(t *testing.T) {
 	client := NewClient()
-	client2 := client.GetClient()
+	client2 := client
 	if client != client2 {
 		t.Error("GetClient did not return the client")
 	}
@@ -64,9 +62,9 @@ func TestGetClient(t *testing.T) {
 
 func TestGetClientSingleton(t *testing.T) {
 	client := NewClient()
-	client2 := client.GetClient()
-	client3 := client.GetClient()
-	if client2 != client {
+	client2 := client.apiClient
+	client3 := client.apiClient
+	if client2 != client.apiClient {
 		t.Error("GetClient did not return the same client")
 	}
 	if client2 != client3 {
