@@ -27,8 +27,8 @@ func TestRemoveClient(t *testing.T) {
 
 	client.Close()
 
-	copyClient := client.apiClient
-	if copyClient != nil {
+	copyClient := client
+	if copyClient.apiClient != nil {
 		t.Error("GetClient() did not return nil after removal")
 	}
 }
@@ -38,8 +38,17 @@ func TestResetClient(t *testing.T) {
 	if client == nil {
 		t.Error("NewClient() returned nil")
 	}
+	if client.apiClient == nil {
+		t.Error("NewClient() returned nil")
+	}
 	copyClient := client.apiClient
 	client.Reset()
+	if client == nil {
+		t.Error("client become nil after reset")
+	}
+	if client.apiClient == nil {
+		t.Error("client.apiClient become nil after reset")
+	}
 	client2 := client.apiClient
 	if copyClient == client2 {
 		t.Error("ResetClient did not reset the client")
