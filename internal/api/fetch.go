@@ -12,7 +12,7 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 	if c.config.useCache {
 		data := c.Retrieve(endpoint)
 		if data != nil {
-			return json.Unmarshal(data.(CachePackage).value, obj)
+			return json.Unmarshal(data.(CachePackage).Value, obj)
 		}
 	}
 	resp, err := c.httpClient.Get(targetURL)
@@ -27,7 +27,7 @@ func (c *Client) Fetch(endpoint string, obj interface{}) error {
 		return fmt.Errorf("error reading response: %w", err)
 	}
 	if c.config.useCache {
-		cachePackage := CachePackage{value: bodyBytes, etag: resp.Header.Get("Etag")}
+		cachePackage := CachePackage{Value: bodyBytes, Etag: resp.Header.Get("Etag")}
 		c.SetCache(endpoint, cachePackage, 0)
 	}
 	err = json.Unmarshal(bodyBytes, obj)

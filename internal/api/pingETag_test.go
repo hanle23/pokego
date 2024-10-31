@@ -1,12 +1,16 @@
-package api
+package api_test
 
 import (
 	"net/http"
 	"testing"
+	"time"
 )
 
 func TestPingETag(t *testing.T) {
-	resp, err := client.httpClient.Get("https://pokeapi.co/api/v2/pokemon/1")
+	httpClient := &http.Client{
+		Timeout: time.Second * 30,
+	}
+	resp, err := httpClient.Get("https://pokeapi.co/api/v2/pokemon/1")
 	if err != nil {
 		t.Errorf("Error: %v", err)
 	}
