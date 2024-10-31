@@ -743,7 +743,359 @@ client := pokego.NewClient(
 
 </details>
 
+### Pokemon
 
+<details>
+  <summary>Abilities</summary>
+
+  #### Ability
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Ability("stench")
+  ```
+
+  #### Abilities (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Abilities("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Characteristics</summary>
+
+  #### Characteristic
+
+  *Must pass ID (string)*
+
+  ```go
+  result, err := client.Characteristic("1")
+  ```
+
+  #### Characteristics (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Characteristics("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Egg Groups</summary>
+
+  #### Egg Group
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.EggGroup("monster")
+  ```
+
+  #### Egg Groups (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.EggGroups("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Genders</summary>
+
+  #### Gender
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Gender("female")
+  ```
+
+  #### Genders (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Genders("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Growth Rates</summary>
+
+  #### Growth Rate
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.GrowthRate("slow")
+  ```
+
+  #### Growth Rates (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.GrowthRates("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Natures</summary>
+
+  #### Nature
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Nature("bold")
+  ```
+
+  #### Natures (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Natures("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Pokeathlon Stats</summary>
+
+  #### Pokeathlon Stat
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.PokeathlonStat("speed")
+  ```
+
+  #### Pokeathlon Stats (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.PokeathlonStats("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Pokemons</summary>
+
+  #### Pokemons
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Pokemon("clefairy")
+  ```
+
+  #### Pokemons (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Pokemons("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Pokemon Location Areas</summary>
+
+  #### Pokemon Location Area
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.PokemonLocationAreas("clefairy")
+  ```
+
+</details>
+
+<details>
+  <summary>Pokemon Colors</summary>
+
+  #### Pokemon Color
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.PokemonColor("black")
+  ```
+
+  #### Pokemon Colors (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.PokemonColors("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Pokemon Forms</summary>
+
+  #### Pokemon Form
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.PokemonForm("arceus-bug")
+  ```
+
+  #### Pokemon Forms (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.PokemonForms("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Pokemon Habitats</summary>
+
+  #### Pokemon Habitat
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.PokemonHabitat("cave")
+  ```
+
+  #### Pokemon Habitats (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.PokemonHabitats("0", "20")
+  ```
+
+</details>
+
+
+<details>
+  <summary>Pokemon Shapes</summary>
+
+  #### Pokemon Shape
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.PokemonShape("ball")
+  ```
+
+  #### Pokemon Shapes (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.PokemonShapes("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Pokemon Species</summary>
+
+  #### Pokemon Species
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.PokemonSpecies("wormadam")
+  ```
+
+  #### Pokemon Species Pagination (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.PokemonSpeciesPagination("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Stats</summary>
+
+  #### Stat
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Stat("attack")
+  ```
+
+  #### Stats (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Stats("0", "20")
+  ```
+
+</details>
+
+<details>
+  <summary>Types</summary>
+
+  #### Type
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Type("ground")
+  ```
+
+  #### Types (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Stats("0", "20")
+  ```
+
+</details>
+
+### Utility
+
+<details>
+  <summary>Languages</summary>
+
+  #### Language
+
+  *Must pass ID or Name (string)*
+
+  ```go
+  result, err := client.Language("ja")
+  ```
+
+  #### Languages (pagination)
+
+  *Must pass offset and limit (string)*
+
+  ```go
+  result, err := client.Languages("0", "20")
+  ```
+
+</details>
 
 ## Additional Information
 
