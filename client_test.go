@@ -22,42 +22,80 @@ func TestClientSingleton(t *testing.T) {
 func TestRemoveClient(t *testing.T) {
 	client := NewClient()
 	if client == nil {
-		t.Error("NewClient() returned nil")
+		t.Fatal("NewClient() returned nil")
+	}
+
+	initialAPIClient := client.apiClient
+	if initialAPIClient == nil {
+		t.Fatal("Initial apiClient is nil")
 	}
 
 	client.Close()
 
-	copyClient := client
-	if copyClient.apiClient != nil {
-		t.Error("GetClient() did not return nil after removal")
+	currentClient := client.GetClient()
+	if currentClient != nil {
+		t.Error("GetClient() should return nil after Close()")
+	}
+
+	if client.apiClient != nil {
+		t.Error("client.apiClient should be nil after Close()")
 	}
 }
 
 func TestResetClient(t *testing.T) {
 	client := NewClient(WithExpireTime(50), WithUseCache(false))
 	if client == nil {
-		t.Error("NewClient() returned nil")
+		t.Fatal("NewClient() returned nil")
 	}
-	if client.apiClient == nil {
-		t.Error("NewClient() returned nil")
+
+	initialAPIClient := client.apiClient
+	if initialAPIClient == nil {
+		t.Fatal("Initial apiClient is nil")
 	}
-	copyClient := client.apiClient
+
+	initialUseCache := initialAPIClient.GetUseCache()
+	initialExpireTime := initialAPIClient.GetExpireTime()
+
 	client.Reset()
+
 	if client == nil {
-		t.Error("client become nil after reset")
+		t.Fatal("Client became nil after Reset()")
 	}
-	if client.apiClient == nil {
-		t.Error("client.apiClient become nil after reset")
+
+	newAPIClient := client.apiClient
+	if newAPIClient == nil {
+		t.Fatal("New apiClient is nil after Reset()")
 	}
-	client2 := client.apiClient
-	if copyClient == client2 {
-		t.Error("ResetClient did not reset the client")
+
+	if initialAPIClient == newAPIClient {
+		t.Error("Reset() did not create new apiClient instance")
 	}
-	if copyClient.GetUseCache() != client2.GetUseCache() {
-		t.Error("ResetClient did not properly copy config useCache")
+
+	if newAPIClient.GetUseCache() != initialUseCache {
+		t.Errorf("Reset() did not maintain useCache setting. Expected: %v, Got: %v",
+			initialUseCache, newAPIClient.GetUseCache())
 	}
-	if copyClient.GetExpireTime() != client2.GetExpireTime() {
-		t.Error("ResetClient did not properly copy config expireTime")
+
+	if newAPIClient.GetExpireTime() != initialExpireTime {
+		t.Errorf("Reset() did not maintain expireTime setting. Expected: %v, Got: %v",
+			initialExpireTime, newAPIClient.GetExpireTime())
+	}
+}
+
+func TestSingletonBehavior(t *testing.T) {
+	// Create first instance
+	client1 := NewClient()
+	if client1 == nil {
+		t.Fatal("First NewClient() returned nil")
+	}
+
+	client2 := NewClient()
+	if client2 == nil {
+		t.Fatal("Second NewClient() returned nil")
+	}
+
+	if client1 != client2 {
+		t.Error("NewClient() did not maintain singleton behavior")
 	}
 }
 
